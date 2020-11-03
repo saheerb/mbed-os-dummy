@@ -1,12 +1,11 @@
 
 pipeline {
-    agent {
-        any
-    }
+    agent any
     stages {
         stage('build') {
             steps {
                 echo "execute something"
+                sh "ls"
             }
         }
     }
