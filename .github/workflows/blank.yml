@@ -32,6 +32,7 @@ jobs:
         run: |
           mkdir -p build_info
           date +"%Y-%m-%dT%H:%S" > build_info/date.txt
+          echo ${{ steps.mbedos_version.outputs.tag }} > build_info/mbed_os_version
           
       - name: Upload date for using in sub jobs
         uses: actions/upload-artifact@v2
@@ -57,6 +58,8 @@ jobs:
           value=`cat date.txt`
           echo "Date is $value"
           echo "::set-output name=TAG::$value"
+          value=`cat mbed_os_version`
+          echo "::set-output name=MBED_OS_VERSION::$value"
           
       - name: Print date
         run: echo ${{ steps.build_info.outputs.TAG }}
@@ -90,7 +93,7 @@ jobs:
           push: true
           file: ./mbed-os-env/Dockerfile
           tags: saheerbabu/mbed-os-env:dummy
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/mbed-os-env:${{ steps.mbedos_version.outputs.tag }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/mbed-os-env:${{ steps.build_info.outputs.MBED_OS_VERSION }}
           cache-to: type=inline
         
 
