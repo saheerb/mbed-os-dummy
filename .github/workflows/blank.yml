@@ -53,7 +53,8 @@ jobs:
       - shell: bash
         id: build_info
         run: |
-          value=`cat build_info/date.txt`
+          ls -l
+          value=`cat date.txt`
           echo "Date is $value"
           echo "::set-output name=TAG::$value"
           
