@@ -93,7 +93,8 @@ jobs:
           push: true
           file: ./mbed-os-env/Dockerfile
           tags: saheerbabu/mbed-os-env:dummy
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/mbed-os-env:${{ steps.build_info.outputs.MBED_OS_VERSION }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/mbed-os-env:dummy
+#           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/mbed-os-env:${{ steps.build_info.outputs.MBED_OS_VERSION }}
           cache-to: type=inline
         
 
