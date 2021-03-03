@@ -30,6 +30,7 @@ jobs:
         
       - shell: bash
         run: |
+          mkdir -p build_info
           date +"%Y-%m-%dT%H:%S" > build_info/date.txt
           
       - name: Upload date for using in sub jobs
@@ -47,11 +48,12 @@ jobs:
       - name: Get date info
         uses: actions/download-artifact@v2
         with:
-          name: date
+          name: build-info
+          
       - shell: bash
         id: build_info
         run: |
-          value=`cat date.txt`
+          value=`cat build_info/date.txt`
           echo "Date is $value"
           echo "::set-output name=TAG::$value"
           
